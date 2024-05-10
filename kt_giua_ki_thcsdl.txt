@@ -1,0 +1,55 @@
+--kt giua ki--
+
+1.
+SELECT * 
+FROM "Customer"
+where "Company" = 'Microsoft Corporation';
+
+2.
+select * from public."Customer"
+join "Invoice"
+on "Customer"."CustomerId" = "Invoice"."CustomerId"
+where extract (year from "InvoiceDate") = '2012';
+
+3.
+select * from public."Track"
+join "InvoiceLine" using ("TrackId")
+join "Invoice" using ("InvoiceId")
+where extract(year from "InvoiceDate") = '2012';
+
+4.
+select * from "Invoice"
+join "InvoiceLine" using ("InvoiceId")
+join "Track" using ("TrackId")
+where "Track"."Name" = 'Dazed and Confused';
+
+5.
+--co tu khoa it nhat, chut nua xem lai
+select * from "Invoice"
+join "InvoiceLine" using ("InvoiceId")
+join "Track" using ("TrackId")
+join "Album" using ("AlbumId")
+where "Title" = 'Presence';
+
+6.
+select * from "Invoice"
+order by "Total" desc;
+
+7.
+select min("Total") as min_value, max("Total") as max_value, avg("Total") as avg_value
+from "Invoice";
+
+8.
+select al."Title", count("Track"."TrackId")
+from "Album" as al
+left join "Track" using ("AlbumId")
+group by "AlbumId";
+
+9.
+select "Customer".* from "Customer"
+left join "Invoice" using ("CustomerId")
+group by "CustomerId"
+having count("Invoice"."InvoiceId") > 2;
+
+10.
+
